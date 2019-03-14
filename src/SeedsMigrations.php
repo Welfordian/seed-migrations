@@ -3,16 +3,24 @@
 namespace Welfordian\SeedMigrations;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
 
 class SeedsMigrations extends Seeder
 {
+    protected $down = false;
+
     public function __construct(SeedLogger $logger)
     {
         $this->logger = $logger;
     }
 
-    public function run(SeedLogger $logger)
+    public function fqcn()
+    {
+        return [self::class, parent::class];
+    }
+
+    public function run()
     {
         Event::listen(['eloquent.created: *'], function($event, $model) {
             $this->logger->created($model[0]);
@@ -26,28 +34,31 @@ class SeedsMigrations extends Seeder
             $this->logger->deleted($model[0]);
         });
 
-        $this->up();
+        $this->handle();
     }
 
-    public function up()
+    public function handle()
     {
 
     }
 
     public function down()
     {
-        $log = SeedLog::where('seeder', get_class($this))->orderBy('batch', 'DESC')->first();
+        $this->down = true;
 
-        dd($log);
-    }
+        $reflection = new \ReflectionClass($this);
 
-    public function undo()
-    {
-
+        Artisan::call('db:unseed', ['--class' => $reflection->name]);
     }
 
     public function __destruct()
     {
-        $this->logger->commit(get_class($this));
+        if ($this->down) {
+            return;
+        }
+
+        $reflection = new \ReflectionClass($this);
+
+        $this->logger->commit($reflection->name);
     }
 }
