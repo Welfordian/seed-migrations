@@ -1,4 +1,4 @@
-#Seed Migrations
+# Seed Migrations
 
 Seeds should be ran from the `App\Database\Seeds` namespace as, by default, Laravel seeds aren't PSR compliant.
 
