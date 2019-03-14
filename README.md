@@ -26,4 +26,6 @@ class CreatePermissions extends SeedsMigrations
 }
 ```
 
-After a seed has been created you can seed using `a db:seed` and undo the seed using `a db:unseed`
+After a seed has been created you can seed using `a db:seed` and undo the seed using `a db:unseed`.
+
+You can directly specify the exact seed to undo using the `--class` option which, in this instance, would be `--class=App\\Database\\Seeds\\CreatePermissions`
