@@ -6,7 +6,7 @@ Once the package has been installed run the migration using `a migrate`.
 
 An example seed using the `SeedsMigrations` class.
 
-```
+```php
 <?php
 
 namespace App\Database\Seeds;
