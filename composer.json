@@ -1,0 +1,23 @@
+{
+    "name": "welfordian/seed-migrations",
+    "description": "Allows for migration of seeds",
+    "authors": [
+        {
+            "name": "welfordian",
+            "email": "josh@fish.cat"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Welfordian\\SeedMigrations\\SeedMigrationsProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Welfordian\\SeedMigrations\\": "src/"
+        }
+    }
+}
