@@ -15,11 +15,6 @@ class SeedsMigrations extends Seeder
         $this->logger = $logger;
     }
 
-    public function fqcn()
-    {
-        return [self::class, parent::class];
-    }
-
     public function run()
     {
         Event::listen(['eloquent.created: *'], function($event, $model) {
@@ -35,11 +30,6 @@ class SeedsMigrations extends Seeder
         });
 
         $this->handle();
-    }
-
-    public function handle()
-    {
-
     }
 
     public function down()
